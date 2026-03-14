@@ -1,12 +1,22 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState, useEffect, type ReactNode } from "react";
 import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 
 export default function Contact() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.1 });
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+      { threshold: 0.05, rootMargin: "0px 0px -20px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const [form, setForm] = useState({
     name: "", email: "", phone: "", projectType: "", message: "",
@@ -28,36 +38,30 @@ export default function Contact() {
 
   return (
     <section id="contato" style={{ background: "#0D0D0D", padding: "5rem 1.25rem" }}>
-      <div ref={ref} style={{ maxWidth: "1280px", margin: "0 auto" }}>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          style={{ fontFamily: "var(--font-space-mono)", fontSize: "12px", color: "#F5C518", letterSpacing: "0.15em", marginBottom: "1.5rem" }}
-        >
+      <div
+        ref={ref}
+        style={{
+          maxWidth: "1280px",
+          margin: "0 auto",
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(24px)",
+          transition: "opacity 0.6s ease, transform 0.6s ease",
+        }}
+      >
+        <p style={{ fontFamily: "var(--font-space-mono)", fontSize: "12px", color: "#F5C518", letterSpacing: "0.15em", marginBottom: "1.5rem" }}>
           [ 05 — CONTATO ]
-        </motion.p>
+        </p>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          style={{ fontFamily: "var(--font-space-grotesk)", fontWeight: 700, fontSize: "clamp(28px, 5vw, 52px)", color: "#F0EDE8", letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: "4rem", maxWidth: "600px" }}
-        >
+        <h2 style={{ fontFamily: "var(--font-space-grotesk)", fontWeight: 700, fontSize: "clamp(28px, 5vw, 52px)", color: "#F0EDE8", letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: "4rem", maxWidth: "600px" }}>
           Vamos falar sobre o seu projeto.
-        </motion.h2>
+        </h2>
 
         <div
           style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: "5rem", alignItems: "start" }}
           className="contact-grid"
         >
           {/* Left: contact info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            style={{ display: "flex", flexDirection: "column" }}
-          >
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <ContactItem icon={<Phone size={18} color="#F5C518" strokeWidth={1.5} />} label="Telefone" value="(48) 99956-9631" href="tel:+5548999569631" />
             <Separator />
             <ContactItem icon={<MessageCircle size={18} color="#F5C518" strokeWidth={1.5} />} label="WhatsApp" value="(48) 99956-9631" href="https://wa.me/5548999569631" />
@@ -73,14 +77,10 @@ export default function Contact() {
                 @FCP_EngEletrica
               </a>
             </p>
-          </motion.div>
+          </div>
 
           {/* Right: form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-          >
+          <div>
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               <div className="form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                 <FieldInput label="Nome" name="name" value={form.name} onChange={handleChange} placeholder="Seu nome" required />
@@ -114,7 +114,7 @@ export default function Contact() {
                 </p>
               )}
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -134,7 +134,7 @@ function Separator() {
   );
 }
 
-function ContactItem({ icon, label, value, href }: { icon: React.ReactNode; label: string; value: string; href?: string }) {
+function ContactItem({ icon, label, value, href }: { icon: ReactNode; label: string; value: string; href?: string }) {
   const inner = (
     <div style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "0.75rem 0" }}>
       <div style={{ marginTop: "2px", flexShrink: 0 }}>{icon}</div>
@@ -157,7 +157,7 @@ const baseInputStyle: React.CSSProperties = {
   width: "100%", background: "#141414", border: "1px solid #2A2A2A", borderRadius: 0,
   padding: "12px 16px", fontFamily: "var(--font-inter)", fontWeight: 400,
   fontSize: "14px", color: "#F0EDE8", outline: "none", boxSizing: "border-box",
-  transition: "border-color 0.2s",
+  transition: "border-color 0.2s", minHeight: "48px",
 };
 
 function FieldInput({ label, name, value, onChange, placeholder, type = "text", required }: {

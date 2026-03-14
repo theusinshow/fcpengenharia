@@ -62,6 +62,19 @@ export default function About() {
           }}
           className="about-grid"
         >
+          {/* Mobile-only: name above photo */}
+          <div
+            className="md:hidden"
+            style={{ gridColumn: "1 / -1", marginBottom: "-2rem" }}
+          >
+            <h2 style={{ fontFamily: "var(--font-space-grotesk)", fontWeight: 700, fontSize: "26px", color: "#F0EDE8", letterSpacing: "-0.03em", lineHeight: 1.1, margin: "0 0 6px" }}>
+              Fernando Coan Peterle
+            </h2>
+            <p style={{ fontFamily: "var(--font-space-mono)", fontSize: "11px", color: "#F5C518", letterSpacing: "0.1em", margin: 0 }}>
+              Engenheiro Eletricista · CREA-SC
+            </p>
+          </div>
+
           {/* Photo */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -83,7 +96,7 @@ export default function About() {
                 width={500}
                 height={500}
                 unoptimized
-                style={{ width: "100%", height: "auto", display: "block" }}
+                style={{ width: "100%", height: "auto", display: "block", filter: "grayscale(8%) contrast(1.05)" }}
               />
               {/* Yellow accent line at bottom */}
               <div
@@ -105,7 +118,9 @@ export default function About() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
           >
+            {/* Desktop-only name (hidden on mobile, shown above photo instead) */}
             <h2
+              className="hidden md:block"
               style={{
                 fontFamily: "var(--font-space-grotesk)",
                 fontWeight: 700,
@@ -119,6 +134,7 @@ export default function About() {
               Fernando Coan Peterle
             </h2>
             <p
+              className="hidden md:block"
               style={{
                 fontFamily: "var(--font-space-mono)",
                 fontSize: "12px",

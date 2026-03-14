@@ -9,11 +9,9 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Fale pelo WhatsApp"
-      className="whatsapp-pulse"
+      className="whatsapp-pulse whatsapp-pos"
       style={{
         position: "fixed",
-        bottom: "32px",
-        right: "32px",
         zIndex: 50,
         width: "48px",
         height: "48px",

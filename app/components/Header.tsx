@@ -67,9 +67,10 @@ export default function Header() {
           maxWidth: "1280px",
           margin: "0 auto",
           padding: "0 1.25rem",
-          display: "grid",
-          gridTemplateColumns: "1fr auto 1fr",
+          display: "flex",
           alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
         }}
       >
         {/* Logo */}
