@@ -26,6 +26,11 @@ body {
   color: #F0EDE8;
 }
 
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0D0D0D; }
+::-webkit-scrollbar-thumb { background: #F5C518; border-radius: 0; }
+
 /* Blueprint grid background for hero */
 .blueprint-grid {
   background-image:
@@ -45,14 +50,13 @@ body {
   animation: pulse-green 2s infinite;
 }
 
-/* Scroll indicator */
-@keyframes scroll-line {
-  0%   { transform: scaleY(0); transform-origin: top; }
-  50%  { transform: scaleY(1); transform-origin: top; }
-  50.001% { transform: scaleY(1); transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
+/* Scroll indicator bounce */
+@keyframes scrollBounce {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(6px); }
+  100% { transform: translateY(0); }
 }
 
-.scroll-line {
-  animation: scroll-line 1.8s ease-in-out infinite;
+.scroll-bounce {
+  animation: scrollBounce 2s ease-in-out infinite;
 }

@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 const reveal = {
   initial: { opacity: 0, y: 40 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
 };
 
 export default function Hero() {
@@ -28,7 +27,7 @@ export default function Hero() {
         style={{ position: "absolute", inset: 0, opacity: 0.6 }}
       />
 
-      {/* Background image with dark overlay */}
+      {/* Background image */}
       <div
         style={{
           position: "absolute",
@@ -55,7 +54,7 @@ export default function Hero() {
         {/* Badge */}
         <motion.div
           {...reveal}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, delay: 0.1 }}
           style={{
             display: "inline-block",
             fontFamily: "var(--font-space-mono)",
@@ -65,6 +64,7 @@ export default function Hero() {
             padding: "6px 16px",
             letterSpacing: "0.15em",
             marginBottom: "2.5rem",
+            opacity: 1,
           }}
         >
           [ CREA-SC · CRICIÚMA, SC ]
@@ -73,7 +73,7 @@ export default function Hero() {
         {/* Headline */}
         <motion.h1
           {...reveal}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, delay: 0.2 }}
           style={{
             fontFamily: "var(--font-space-grotesk)",
             fontWeight: 700,
@@ -93,7 +93,7 @@ export default function Hero() {
         {/* Subtitle */}
         <motion.p
           {...reveal}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, delay: 0.3 }}
           style={{
             fontFamily: "var(--font-inter)",
             fontWeight: 400,
@@ -111,7 +111,7 @@ export default function Hero() {
         {/* CTAs */}
         <motion.div
           {...reveal}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, delay: 0.4 }}
           style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}
         >
           <PrimaryBtn href="#contato" label="Solicitar Orçamento →" />
@@ -122,7 +122,7 @@ export default function Hero() {
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: 0.8 }}
         transition={{ delay: 1.2, duration: 0.5 }}
         style={{
           position: "absolute",
@@ -139,22 +139,35 @@ export default function Hero() {
           style={{
             fontFamily: "var(--font-space-mono)",
             fontSize: "10px",
-            color: "#555555",
-            letterSpacing: "0.15em",
+            color: "#F5C518",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
           }}
         >
-          scroll
+          SCROLL
         </span>
         <div
+          className="scroll-bounce"
           style={{
             width: "1px",
             height: "48px",
             background: "#F5C518",
             opacity: 0.6,
           }}
-          className="scroll-line"
         />
       </motion.div>
+
+      {/* Bottom separator line */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: "1px",
+          background: "rgba(245,197,24,0.2)",
+        }}
+      />
     </section>
   );
 }
@@ -191,24 +204,26 @@ function SecondaryBtn({ href, label }: { href: string; label: string }) {
       onClick={(e) => { e.preventDefault(); document.querySelector(href)?.scrollIntoView({ behavior: "smooth" }); }}
       style={{
         fontFamily: "var(--font-space-grotesk)",
-        fontWeight: 400,
+        fontWeight: 500,
         fontSize: "15px",
-        color: "#F0EDE8",
+        color: "#FFFFFF",
         background: "transparent",
-        border: "1px solid #2A2A2A",
+        border: "1.5px solid #FFFFFF",
         borderRadius: 0,
         padding: "14px 28px",
         textDecoration: "none",
         display: "inline-block",
-        transition: "border-color 0.2s, color 0.2s",
+        transition: "border-color 0.25s, color 0.25s, background 0.25s",
       }}
       onMouseEnter={(e) => {
+        e.currentTarget.style.background = "rgba(255,255,255,0.1)";
         e.currentTarget.style.borderColor = "#F5C518";
         e.currentTarget.style.color = "#F5C518";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "#2A2A2A";
-        e.currentTarget.style.color = "#F0EDE8";
+        e.currentTarget.style.background = "transparent";
+        e.currentTarget.style.borderColor = "#FFFFFF";
+        e.currentTarget.style.color = "#FFFFFF";
       }}
     >
       {label}

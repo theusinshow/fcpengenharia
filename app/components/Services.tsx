@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Zap, FileText, Scale, Cpu, Sun, ShieldCheck } from "lucide-react";
 
@@ -59,7 +59,6 @@ export default function Services() {
       style={{ background: "#0D0D0D", padding: "6rem 2rem" }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-        {/* Section label */}
         <motion.p
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
@@ -76,7 +75,6 @@ export default function Services() {
           [ 02 — SERVIÇOS ]
         </motion.p>
 
-        {/* Headline */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -95,7 +93,6 @@ export default function Services() {
           O que fazemos com precisão.
         </motion.h2>
 
-        {/* Grid */}
         <div
           style={{
             display: "grid",
@@ -134,19 +131,20 @@ function ServiceCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? "#141414" : "#141414",
+        background: "#141414",
         padding: "2rem",
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
         border: hovered ? "1px solid #F5C518" : "1px solid transparent",
+        borderLeft: hovered ? "3px solid #F5C518" : "3px solid transparent",
         boxShadow: hovered ? "0 0 32px rgba(245,197,24,0.08)" : "none",
         transition: "border-color 0.25s, box-shadow 0.25s",
         cursor: "default",
         position: "relative",
       }}
     >
-      {/* Decorative number */}
+      {/* Decorative number — yellow com opacity baixa */}
       <span
         style={{
           position: "absolute",
@@ -154,17 +152,16 @@ function ServiceCard({
           right: "1.5rem",
           fontFamily: "var(--font-space-mono)",
           fontSize: "14px",
-          color: "#2A2A2A",
+          color: "#F5C518",
           fontWeight: 400,
+          opacity: 0.12,
         }}
       >
         {service.num}
       </span>
 
-      {/* Icon */}
       <Icon size={24} color="#F5C518" strokeWidth={1.5} />
 
-      {/* Title */}
       <h3
         style={{
           fontFamily: "var(--font-space-grotesk)",
@@ -178,7 +175,6 @@ function ServiceCard({
         {service.title}
       </h3>
 
-      {/* Description */}
       <p
         style={{
           fontFamily: "var(--font-inter)",
@@ -193,7 +189,6 @@ function ServiceCard({
         {service.description}
       </p>
 
-      {/* Link */}
       <a
         href="#contato"
         onClick={(e) => { e.preventDefault(); document.querySelector("#contato")?.scrollIntoView({ behavior: "smooth" }); }}
@@ -211,6 +206,3 @@ function ServiceCard({
     </motion.div>
   );
 }
-
-// Need useState import
-import { useState } from "react";

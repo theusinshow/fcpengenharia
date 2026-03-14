@@ -19,7 +19,7 @@ export default function Footer() {
     <footer
       style={{
         background: "#080808",
-        borderTop: "1px solid #1C1C1C",
+        borderTop: "1px solid #F5C518",
         padding: "3rem 2rem",
       }}
     >
@@ -38,40 +38,14 @@ export default function Footer() {
           }}
         >
           {/* Logo */}
-          <div>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-              <span
-                style={{
-                  fontFamily: "var(--font-space-grotesk)",
-                  fontWeight: 700,
-                  fontSize: "22px",
-                  color: "#F0EDE8",
-                  letterSpacing: "-0.02em",
-                  lineHeight: 1,
-                }}
-              >
-                FCP
-              </span>
-              <span
-                style={{
-                  display: "block",
-                  width: "100%",
-                  height: "2px",
-                  background: "#F5C518",
-                  margin: "3px 0",
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: "var(--font-space-mono)",
-                  fontSize: "9px",
-                  color: "#555555",
-                  letterSpacing: "0.12em",
-                }}
-              >
-                ENGENHARIA ELÉTRICA · CRICIÚMA SC
-              </span>
-            </div>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+            <span style={{ fontFamily: "var(--font-space-grotesk)", fontWeight: 700, fontSize: "22px", color: "#F0EDE8", letterSpacing: "-0.02em", lineHeight: 1 }}>
+              FCP
+            </span>
+            <span style={{ display: "block", width: "100%", height: "2px", background: "#F5C518", margin: "3px 0" }} />
+            <span style={{ fontFamily: "var(--font-space-mono)", fontSize: "9px", color: "#555555", letterSpacing: "0.12em" }}>
+              ENGENHARIA ELÉTRICA · CRICIÚMA SC
+            </span>
           </div>
 
           {/* Nav links */}
@@ -82,12 +56,8 @@ export default function Footer() {
                 href={link.href}
                 onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
                 style={{
-                  fontFamily: "var(--font-space-grotesk)",
-                  fontWeight: 400,
-                  fontSize: "13px",
-                  color: "#555555",
-                  textDecoration: "none",
-                  transition: "color 0.2s",
+                  fontFamily: "var(--font-space-grotesk)", fontWeight: 400, fontSize: "13px",
+                  color: "#555555", textDecoration: "none", transition: "color 0.2s",
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "#F5C518")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "#555555")}
@@ -102,16 +72,7 @@ export default function Footer() {
             href="https://www.instagram.com/FCP_EngEletrica"
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              fontFamily: "var(--font-space-mono)",
-              fontSize: "11px",
-              color: "#555555",
-              textDecoration: "none",
-              transition: "color 0.2s",
-            }}
+            style={{ display: "flex", alignItems: "center", gap: "8px", fontFamily: "var(--font-space-mono)", fontSize: "11px", color: "#555555", textDecoration: "none", transition: "color 0.2s" }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#F5C518")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#555555")}
           >
@@ -121,36 +82,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom row */}
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            gap: "1rem",
-          }}
-        >
-          <p
-            style={{
-              fontFamily: "var(--font-space-mono)",
-              fontSize: "11px",
-              color: "#2A2A2A",
-              margin: 0,
-              letterSpacing: "0.06em",
-            }}
-          >
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "1rem" }}>
+          <p style={{ fontFamily: "var(--font-space-mono)", fontSize: "11px", color: "#2A2A2A", margin: 0, letterSpacing: "0.06em" }}>
             © {new Date().getFullYear()} FCP Engenharia Elétrica. Todos os direitos reservados.
           </p>
-          <p
-            style={{
-              fontFamily: "var(--font-space-mono)",
-              fontSize: "11px",
-              color: "#2A2A2A",
-              margin: 0,
-              letterSpacing: "0.06em",
-            }}
-          >
-            Desenvolvido por{" "}
-            <span style={{ color: "#555555" }}>Coded by M</span>
+          <p style={{ fontFamily: "var(--font-space-mono)", fontSize: "11px", margin: 0, letterSpacing: "0.06em" }}>
+            <span style={{ color: "#2A2A2A" }}>Desenvolvido por </span>
+            <span style={{ color: "#F5C518" }}>Coded by M</span>
           </p>
         </div>
       </div>
