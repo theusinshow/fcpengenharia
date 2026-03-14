@@ -1,132 +1,216 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
 import { useRef } from "react";
-import Image from "next/image";
+import { motion, useInView } from "framer-motion";
+import { Zap, FileText, Scale, Cpu, Sun, ShieldCheck } from "lucide-react";
 
 const services = [
   {
-    icon: "https://static.wixstatic.com/media/b817bd_ee13da9fdb4e4ebe8be54f8b63d1a482~mv2.png/v1/fill/w_200,h_200,al_c,q_95/file.png",
+    icon: Zap,
+    num: "01",
     title: "Projetos Elétricos",
     description:
-      "Projetos completos: Padrão de entrada, Subestações, Elétrica, Cabeamento Estruturado (Internet, Telefone, TV e CFTV). Projetos em BIM com maior detalhamento e compatibilidade multidisciplinar.",
+      "Padrão de entrada, Subestações, Elétrica, Cabeamento Estruturado (Internet, Telefone, TV e CFTV). Projetos em BIM com maior compatibilidade multidisciplinar.",
   },
   {
-    icon: "https://static.wixstatic.com/media/b817bd_fcb0074c5657473d961603dcf630a0c7~mv2.png/v1/fill/w_200,h_200,al_c,q_95/file.png",
+    icon: FileText,
+    num: "02",
     title: "Laudos Técnicos",
     description:
-      "SPDA, Luminotécnico, Aterramento, Prontuário de Instalações Elétricas, Restituição de ICMS, PPCI (incêndio).",
+      "SPDA, Luminotécnico, Aterramento, Prontuário de Instalações Elétricas, Restituição de ICMS, PPCI.",
   },
   {
-    icon: "https://static.wixstatic.com/media/b817bd_9fc37f25abb548d5bbdf23719a44525b~mv2.png/v1/fill/w_200,h_200,al_c,q_95/file.png",
+    icon: Scale,
+    num: "03",
     title: "Periciais Judiciais",
     description:
-      "Expertise em Periciais Judiciais Elétricas e Assistências Técnicas Judiciais com rigor técnico e imparcialidade.",
+      "Expertise em Periciais Judiciais Elétricas e Assistências Técnicas para processos judiciais.",
   },
   {
-    icon: "https://static.wixstatic.com/media/b817bd_a308787cb13e45e7a664e295bac9450b~mv2.png/v1/fill/w_200,h_200,al_c,q_95/file.png",
+    icon: Cpu,
+    num: "04",
     title: "Automação",
     description:
-      "Projetos residenciais, industriais e de painéis elétricos. Soluções inteligentes para maior eficiência e segurança.",
+      "Projetos residenciais, industriais e de painéis elétricos que facilitam e agilizam tarefas com economia real.",
   },
   {
-    icon: "https://static.wixstatic.com/media/b817bd_2619608c71024f72ae152f63886a63d4~mv2.png/v1/fill/w_200,h_200,al_c,q_95/file.png",
-    title: "Geração de Energia & Segurança",
+    icon: Sun,
+    num: "05",
+    title: "Energia Solar",
     description:
-      "Projetos Fotovoltaicos com até 90% de economia na conta de luz e PPCI (Plano de Prevenção e Proteção Contra Incêndio).",
+      "Projetos Fotovoltaicos com até 90% de economia nas faturas. Invista no futuro com segurança técnica.",
+  },
+  {
+    icon: ShieldCheck,
+    num: "06",
+    title: "PPCI",
+    description:
+      "Projetos Preventivos Contra Incêndio com atendimento às exigências do Corpo de Bombeiros.",
   },
 ];
 
 export default function Services() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="servicos" className="py-24 lg:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
+    <section
+      id="servicos"
+      style={{ background: "#0D0D0D", padding: "6rem 2rem" }}
+    >
+      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+        {/* Section label */}
+        <motion.p
+          ref={ref}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          style={{
+            fontFamily: "var(--font-space-mono)",
+            fontSize: "12px",
+            color: "#F5C518",
+            letterSpacing: "0.15em",
+            marginBottom: "1.5rem",
+          }}
+        >
+          [ 02 — SERVIÇOS ]
+        </motion.p>
+
+        {/* Headline */}
+        <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-          ref={ref}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          style={{
+            fontFamily: "var(--font-space-grotesk)",
+            fontWeight: 700,
+            fontSize: "clamp(32px, 5vw, 52px)",
+            color: "#F0EDE8",
+            letterSpacing: "-0.03em",
+            lineHeight: 1.1,
+            marginBottom: "4rem",
+            maxWidth: "560px",
+          }}
         >
-          <span className="inline-block font-raleway font-semibold text-[#993500] text-sm uppercase tracking-widest mb-4">
-            O que fazemos
-          </span>
-          <h2 className="font-sora font-light text-[#2D3436] text-4xl md:text-5xl lg:text-6xl mb-6">
-            Serviços{" "}
-            <span className="font-semibold text-[#116DFF]">Especializados</span>
-          </h2>
-          <p className="font-sora font-light text-[#868D90] text-lg max-w-2xl mx-auto">
-            Soluções completas de engenharia elétrica com rigor técnico,
-            segurança e atenção a cada detalhe do projeto.
-          </p>
-        </motion.div>
+          O que fazemos com precisão.
+        </motion.h2>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
-              whileHover={{
-                y: -4,
-                boxShadow: "0 12px 32px rgba(17,109,255,0.12)",
-              }}
-              className={`bg-white border border-[#DFE6E9] rounded-2xl p-8 flex flex-col gap-5 group cursor-default transition-all duration-300 hover:border-[#116DFF] relative overflow-hidden ${
-                i === 4 ? "md:col-span-2 lg:col-span-1" : ""
-              }`}
-            >
-              {/* Top accent line */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#116DFF] to-[#116DFF]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-              {/* Icon */}
-              <div className="w-14 h-14 relative">
-                <Image
-                  src={service.icon}
-                  alt={service.title}
-                  width={56}
-                  height={56}
-                  className="object-contain"
-                  unoptimized
-                />
-              </div>
-
-              {/* Content */}
-              <div>
-                <h3 className="font-sora font-semibold text-[#2D3436] text-lg mb-2 group-hover:text-[#116DFF] transition-colors duration-200">
-                  {service.title}
-                </h3>
-                <p className="font-sora font-light text-[#868D90] text-sm leading-relaxed">
-                  {service.description}
-                </p>
-              </div>
-
-              {/* Saiba mais */}
-              <div className="mt-auto pt-2">
-                <a
-                  href="#contato"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector("#contato")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#116DFF] hover:gap-3 transition-all duration-200"
-                >
-                  Saiba mais
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </a>
-              </div>
-            </motion.div>
+        {/* Grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+            gap: "1px",
+            background: "#2A2A2A",
+            border: "1px solid #2A2A2A",
+          }}
+        >
+          {services.map((s, i) => (
+            <ServiceCard key={i} service={s} index={i} inView={inView} />
           ))}
         </div>
       </div>
     </section>
   );
 }
+
+function ServiceCard({
+  service,
+  index,
+  inView,
+}: {
+  service: (typeof services)[0];
+  index: number;
+  inView: boolean;
+}) {
+  const [hovered, setHovered] = useState(false);
+  const Icon = service.icon;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: index * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: hovered ? "#141414" : "#141414",
+        padding: "2rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        border: hovered ? "1px solid #F5C518" : "1px solid transparent",
+        boxShadow: hovered ? "0 0 32px rgba(245,197,24,0.08)" : "none",
+        transition: "border-color 0.25s, box-shadow 0.25s",
+        cursor: "default",
+        position: "relative",
+      }}
+    >
+      {/* Decorative number */}
+      <span
+        style={{
+          position: "absolute",
+          top: "1.5rem",
+          right: "1.5rem",
+          fontFamily: "var(--font-space-mono)",
+          fontSize: "14px",
+          color: "#2A2A2A",
+          fontWeight: 400,
+        }}
+      >
+        {service.num}
+      </span>
+
+      {/* Icon */}
+      <Icon size={24} color="#F5C518" strokeWidth={1.5} />
+
+      {/* Title */}
+      <h3
+        style={{
+          fontFamily: "var(--font-space-grotesk)",
+          fontWeight: 600,
+          fontSize: "18px",
+          color: "#F0EDE8",
+          lineHeight: 1.2,
+          margin: 0,
+        }}
+      >
+        {service.title}
+      </h3>
+
+      {/* Description */}
+      <p
+        style={{
+          fontFamily: "var(--font-inter)",
+          fontWeight: 400,
+          fontSize: "14px",
+          color: "#888888",
+          lineHeight: 1.6,
+          margin: 0,
+          flexGrow: 1,
+        }}
+      >
+        {service.description}
+      </p>
+
+      {/* Link */}
+      <a
+        href="#contato"
+        onClick={(e) => { e.preventDefault(); document.querySelector("#contato")?.scrollIntoView({ behavior: "smooth" }); }}
+        style={{
+          fontFamily: "var(--font-space-grotesk)",
+          fontWeight: 500,
+          fontSize: "13px",
+          color: "#F5C518",
+          textDecoration: "none",
+          marginTop: "0.5rem",
+        }}
+      >
+        Ver detalhes →
+      </a>
+    </motion.div>
+  );
+}
+
+// Need useState import
+import { useState } from "react";

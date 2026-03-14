@@ -1,22 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary:    #116DFF;
-  --color-dark:       #2D3436;
-  --color-bg:         #FFFFFF;
-  --color-bg-alt:     #DFE6E9;
-  --color-text-muted: #868D90;
-  --color-whatsapp:   #37D366;
-  --color-accent:     #993500;
-
-  --font-sora: var(--font-sora);
-  --font-raleway: var(--font-raleway);
+  --color-bg:         #0D0D0D;
+  --color-surface:    #141414;
+  --color-surface-2:  #1C1C1C;
+  --color-border:     #2A2A2A;
+  --color-accent:     #F5C518;
+  --color-accent-dim: #B8920E;
+  --color-text:       #F0EDE8;
+  --color-muted:      #888888;
+  --color-muted-2:    #555555;
 }
 
 @theme inline {
   --color-background: var(--color-bg);
-  --color-foreground: var(--color-dark);
-  --font-sans: var(--font-sora);
+  --color-foreground: var(--color-text);
 }
 
 html {
@@ -24,31 +22,37 @@ html {
 }
 
 body {
-  background: var(--color-bg);
-  color: var(--color-dark);
-  font-family: var(--font-sora), Helvetica, Arial, sans-serif;
+  background: #0D0D0D;
+  color: #F0EDE8;
 }
 
-@keyframes pulse-whatsapp {
-  0% {
-    box-shadow: 0 0 0 0 rgba(55, 211, 102, 0.6);
-  }
-  70% {
-    box-shadow: 0 0 0 16px rgba(55, 211, 102, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(55, 211, 102, 0);
-  }
+/* Blueprint grid background for hero */
+.blueprint-grid {
+  background-image:
+    linear-gradient(to right, #1C1C1C 1px, transparent 1px),
+    linear-gradient(to bottom, #1C1C1C 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* WhatsApp pulse animation */
+@keyframes pulse-green {
+  0%   { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+  70%  { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
 }
 
 .whatsapp-pulse {
-  animation: pulse-whatsapp 2s infinite;
+  animation: pulse-green 2s infinite;
 }
 
-.font-sora {
-  font-family: var(--font-sora), Helvetica, Arial, sans-serif;
+/* Scroll indicator */
+@keyframes scroll-line {
+  0%   { transform: scaleY(0); transform-origin: top; }
+  50%  { transform: scaleY(1); transform-origin: top; }
+  50.001% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
-.font-raleway {
-  font-family: var(--font-raleway), Helvetica, Arial, sans-serif;
+.scroll-line {
+  animation: scroll-line 1.8s ease-in-out infinite;
 }

@@ -1,32 +1,38 @@
 import type { Metadata } from "next";
-import { Sora, Raleway } from "next/font/google";
+import { Space_Grotesk, Space_Mono, Inter } from "next/font/google";
 import "./globals.css";
 
-const sora = Sora({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700"],
-  variable: "--font-sora",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
-const raleway = Raleway({
+const spaceMono = Space_Mono({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-raleway",
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-inter",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "FCP Engenharia Elétrica | Criciúma SC",
   description:
-    "Projetos elétricos, laudos técnicos, periciais judiciais, automação e geração fotovoltaica em Criciúma, SC. Engenharia elétrica premium com excelência técnica.",
+    "Projetos elétricos, laudos técnicos, periciais judiciais, automação e geração fotovoltaica em Criciúma, SC. Engenharia elétrica de alto padrão.",
   keywords:
-    "engenharia elétrica Criciúma SC, projeto elétrico, laudo técnico SPDA, CREA, automação industrial, painel elétrico, geração fotovoltaica",
+    "engenharia elétrica Criciúma SC, projeto elétrico, laudo técnico SPDA, CREA-SC, automação industrial, painel elétrico, energia solar fotovoltaica",
   authors: [{ name: "FCP Engenharia Elétrica" }],
   openGraph: {
     title: "FCP Engenharia Elétrica | Criciúma SC",
-    description:
-      "Da planta ao padrão aprovado. Engenharia elétrica premium em Santa Catarina.",
+    description: "Engenharia elétrica de alto padrão. Precisão que ilumina.",
     type: "website",
     locale: "pt_BR",
   },
@@ -38,7 +44,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${sora.variable} ${raleway.variable}`}>
+    <html
+      lang="pt-BR"
+      className={`${spaceGrotesk.variable} ${spaceMono.variable} ${inter.variable}`}
+    >
       <head>
         <script
           type="application/ld+json"
@@ -47,8 +56,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": ["LocalBusiness", "ProfessionalService"],
               name: "FCP Engenharia Elétrica",
-              description:
-                "Escritório de engenharia elétrica premium em Criciúma, SC.",
+              description: "Engenharia elétrica de alto padrão em Criciúma, SC.",
               telephone: "+55-48-99956-9631",
               email: "eng.fernandocoanp@gmail.com",
               address: {
@@ -57,13 +65,18 @@ export default function RootLayout({
                 addressRegion: "SC",
                 addressCountry: "BR",
               },
-              url: "https://fcpengenharia.com.br",
               sameAs: ["https://www.instagram.com/FCP_EngEletrica"],
             }),
           }}
         />
       </head>
-      <body className={`${sora.variable} ${raleway.variable} antialiased bg-white text-[#2D3436]`}>
+      <body
+        style={{
+          fontFamily: "var(--font-space-grotesk), system-ui, sans-serif",
+          background: "#0D0D0D",
+          color: "#F0EDE8",
+        }}
+      >
         {children}
       </body>
     </html>
