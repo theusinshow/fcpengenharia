@@ -62,14 +62,14 @@ export default function Header() {
       }}
     >
       <div
+        className="header-bar"
         style={{
           maxWidth: "1280px",
           margin: "0 auto",
-          padding: "0 2rem",
+          padding: "0 1.25rem",
           display: "grid",
           gridTemplateColumns: "1fr auto 1fr",
           alignItems: "center",
-          height: "80px",
         }}
       >
         {/* Logo */}
@@ -116,44 +116,69 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — full-screen overlay */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            style={{ background: "#141414", borderTop: "1px solid #2A2A2A", overflow: "hidden" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="mobile-menu-overlay"
           >
-            <nav style={{ display: "flex", flexDirection: "column", padding: "1.5rem 2rem", gap: "1.25rem" }}>
+            <nav style={{ display: "flex", flexDirection: "column", padding: "2rem 2rem 0" }}>
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={(e) => { e.preventDefault(); setMenuOpen(false); scrollTo(link.href); }}
                   style={{
-                    fontFamily: "var(--font-space-grotesk)", fontWeight: 500, fontSize: "12px",
-                    color: activeSection === link.section ? "#F5C518" : "#FFFFFF",
-                    textDecoration: "none", letterSpacing: "0.12em", textTransform: "uppercase",
+                    fontFamily: "var(--font-space-grotesk)",
+                    fontWeight: 700,
+                    fontSize: "26px",
+                    color: activeSection === link.section ? "#F5C518" : "#F0EDE8",
+                    textDecoration: "none",
+                    letterSpacing: "-0.01em",
+                    padding: "1rem 0",
+                    borderBottom: "1px solid #1C1C1C",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    transition: "color 0.2s",
                   }}
                 >
                   {link.label}
+                  <span style={{ color: "#F5C518", fontSize: "20px" }}>→</span>
                 </a>
               ))}
+            </nav>
+
+            {/* CTA at bottom */}
+            <div style={{ padding: "2rem", marginTop: "auto" }}>
               <a
                 href="#contato"
                 onClick={(e) => { e.preventDefault(); setMenuOpen(false); scrollTo("#contato"); }}
                 style={{
-                  fontFamily: "var(--font-space-grotesk)", fontWeight: 600, fontSize: "12px",
-                  color: "#F5C518", border: "1px solid #F5C518",
-                  padding: "12px 20px", textDecoration: "none", textAlign: "center", display: "block",
-                  letterSpacing: "0.1em", textTransform: "uppercase",
+                  display: "block",
+                  fontFamily: "var(--font-space-grotesk)",
+                  fontWeight: 700,
+                  fontSize: "14px",
+                  color: "#0D0D0D",
+                  background: "#F5C518",
+                  padding: "16px 24px",
+                  textDecoration: "none",
+                  textAlign: "center",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  marginBottom: "1rem",
                 }}
               >
-                ORÇAMENTO →
+                SOLICITAR ORÇAMENTO →
               </a>
-            </nav>
+              <p style={{ fontFamily: "var(--font-space-mono)", fontSize: "11px", color: "#555555", textAlign: "center", letterSpacing: "0.1em" }}>
+                (48) 99956-9631
+              </p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

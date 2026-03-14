@@ -21,7 +21,7 @@ const mvv = [
 
 export default function About() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, amount: 0.05 });
 
   return (
     <section
@@ -29,7 +29,7 @@ export default function About() {
       style={{
         background: "#141414",
         borderTop: "1px solid #2A2A2A",
-        padding: "6rem 2rem",
+        padding: "5rem 1.25rem",
       }}
     >
       <div

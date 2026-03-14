@@ -56,7 +56,7 @@ export default function Services() {
   return (
     <section
       id="servicos"
-      style={{ background: "#0D0D0D", padding: "6rem 2rem" }}
+      style={{ background: "#0D0D0D", padding: "5rem 1.25rem" }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <motion.p

@@ -11,9 +11,10 @@ export default function Hero() {
   return (
     <section
       id="hero"
+      className="hero-section"
       style={{
         position: "relative",
-        minHeight: "100vh",
+        minHeight: "100dvh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -97,11 +98,12 @@ export default function Hero() {
           style={{
             fontFamily: "var(--font-inter)",
             fontWeight: 400,
-            fontSize: "18px",
+            fontSize: "clamp(14px, 3vw, 18px)",
             color: "#888888",
             maxWidth: "600px",
             margin: "0 auto 2.5rem",
             lineHeight: 1.6,
+            padding: "0 0.5rem",
           }}
         >
           Projetos elétricos completos — do laudo à aprovação — para
@@ -112,7 +114,7 @@ export default function Hero() {
         <motion.div
           {...reveal}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, delay: 0.4 }}
-          style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}
+          className="hero-ctas"
         >
           <PrimaryBtn href="#contato" label="Solicitar Orçamento →" />
           <SecondaryBtn href="#portfolio" label="Ver Portfólio" />

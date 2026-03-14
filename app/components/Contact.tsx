@@ -27,7 +27,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contato" style={{ background: "#0D0D0D", padding: "6rem 2rem" }}>
+    <section id="contato" style={{ background: "#0D0D0D", padding: "5rem 1.25rem" }}>
       <div ref={ref} style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -82,11 +82,11 @@ export default function Contact() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
           >
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div className="form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                 <FieldInput label="Nome" name="name" value={form.name} onChange={handleChange} placeholder="Seu nome" required />
                 <FieldInput label="E-mail" name="email" type="email" value={form.email} onChange={handleChange} placeholder="seu@email.com" />
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div className="form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                 <FieldInput label="Telefone" name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="(48) 99999-9999" required />
                 <FieldSelect label="Tipo de Projeto" name="projectType" value={form.projectType} onChange={handleChange} />
               </div>
@@ -121,6 +121,7 @@ export default function Contact() {
       <style jsx>{`
         @media (max-width: 768px) {
           .contact-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+          .form-row { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

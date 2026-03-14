@@ -18,9 +18,9 @@ export default function Stats() {
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div
+          className="stats-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
             gap: "2rem",
           }}
         >

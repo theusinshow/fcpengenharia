@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -50,21 +50,36 @@ const projects = [
   },
 ];
 
-const CARD_WIDTH = 480;
 const CARD_GAP = 16;
 
 export default function Portfolio() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
   const [active, setActive] = useState(0);
+  const [cardWidth, setCardWidth] = useState(480);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
+
+  // Responsive card width
+  useEffect(() => {
+    const update = () => {
+      const vw = window.innerWidth;
+      setCardWidth(vw < 640 ? Math.min(420, Math.floor(vw * 0.82)) : 480);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   // Drag state
   const dragStart = useRef<number | null>(null);
   const dragDelta = useRef(0);
 
   const goTo = useCallback(
-    (idx: number) => setActive(Math.max(0, Math.min(projects.length - 1, idx))),
+    (idx: number) => {
+      setActive(Math.max(0, Math.min(projects.length - 1, idx)));
+      setHasInteracted(true);
+    },
     []
   );
 
@@ -87,7 +102,7 @@ export default function Portfolio() {
     dragDelta.current = 0;
   };
 
-  const translateX = -(active * (CARD_WIDTH + CARD_GAP));
+  const translateX = -(active * (cardWidth + CARD_GAP));
 
   return (
     <section
@@ -118,16 +133,7 @@ export default function Portfolio() {
             >
               Projetos que resistem à<br />inspeção técnica.
             </motion.h2>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              style={{ fontFamily: "var(--font-inter)", fontWeight: 300, fontSize: "14px", color: "#555555" }}
-            >
-              Passe o cursor sobre cada projeto para ver os detalhes.
-            </motion.p>
           </div>
-          {/* Project count */}
           <motion.span
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
@@ -163,13 +169,13 @@ export default function Portfolio() {
           }}
         >
           {projects.map((project, i) => (
-            <PortfolioCard key={i} project={project} active={active === i} />
+            <PortfolioCard key={i} project={project} active={active === i} cardWidth={cardWidth} />
           ))}
         </div>
       </motion.div>
 
       {/* Controls */}
-      <div style={{ maxWidth: "1280px", margin: "2rem auto 0", padding: "0 2rem", display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "1rem" }}>
+      <div style={{ maxWidth: "1280px", margin: "1.5rem auto 0", padding: "0 2rem", display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "1rem" }}>
         {/* Dots */}
         <div style={{ display: "flex", gap: "8px", marginRight: "auto" }}>
           {projects.map((_, i) => (
@@ -190,19 +196,51 @@ export default function Portfolio() {
           ))}
         </div>
 
-        {/* Arrow buttons */}
-        <ArrowBtn onClick={() => goTo(active - 1)} disabled={active === 0}>
-          <ArrowLeft size={18} />
-        </ArrowBtn>
-        <ArrowBtn onClick={() => goTo(active + 1)} disabled={active === projects.length - 1}>
-          <ArrowRight size={18} />
-        </ArrowBtn>
+        {/* Arrow buttons — hidden on mobile */}
+        <div className="hidden md:flex" style={{ gap: "1rem" }}>
+          <ArrowBtn onClick={() => goTo(active - 1)} disabled={active === 0}>
+            <ArrowLeft size={18} />
+          </ArrowBtn>
+          <ArrowBtn onClick={() => goTo(active + 1)} disabled={active === projects.length - 1}>
+            <ArrowRight size={18} />
+          </ArrowBtn>
+        </div>
       </div>
+
+      {/* Swipe hint — mobile only */}
+      {!hasInteracted && (
+        <div
+          className="swipe-hint md:hidden"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px",
+            marginTop: "1rem",
+            fontFamily: "var(--font-space-mono)",
+            fontSize: "10px",
+            color: "#555555",
+            letterSpacing: "0.12em",
+          }}
+        >
+          <span>←</span>
+          <span>DESLIZE PARA VER MAIS</span>
+          <span>→</span>
+        </div>
+      )}
     </section>
   );
 }
 
-function PortfolioCard({ project, active }: { project: (typeof projects)[0]; active: boolean }) {
+function PortfolioCard({
+  project,
+  active,
+  cardWidth,
+}: {
+  project: (typeof projects)[0];
+  active: boolean;
+  cardWidth: number;
+}) {
   const [hovered, setHovered] = useState(false);
   const [imgSrc, setImgSrc] = useState(project.image);
 
@@ -212,13 +250,12 @@ function PortfolioCard({ project, active }: { project: (typeof projects)[0]; act
       onMouseLeave={() => setHovered(false)}
       style={{
         flexShrink: 0,
-        width: `${CARD_WIDTH}px`,
-        height: "600px",
+        width: `${cardWidth}px`,
+        height: "clamp(320px, 65vw, 600px)",
         position: "relative",
         overflow: "hidden",
         border: hovered ? "1.5px solid #F5C518" : "1px solid #2A2A2A",
         transition: "border-color 0.3s",
-        filter: hovered ? "grayscale(0%)" : "grayscale(20%)",
       }}
     >
       <Image
@@ -234,98 +271,88 @@ function PortfolioCard({ project, active }: { project: (typeof projects)[0]; act
         }}
       />
 
-      {/* Hover overlay */}
+      {/* Permanent gradient + info — always visible (mobile-friendly) */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: "rgba(0,0,0,0.75)",
-          opacity: hovered ? 1 : 0,
-          transition: "opacity 0.4s ease",
+          background: "linear-gradient(to top, rgba(13,13,13,0.95) 0%, rgba(13,13,13,0.3) 45%, transparent 70%)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
-          padding: "2rem",
+          padding: "1.5rem",
         }}
       >
-        <div
+        <span
           style={{
-            transform: hovered ? "translateY(0)" : "translateY(20px)",
-            transition: "transform 0.4s ease",
+            fontFamily: "var(--font-space-mono)",
+            fontSize: "10px",
+            color: "#F5C518",
+            letterSpacing: "0.15em",
+            display: "block",
+            marginBottom: "8px",
           }}
         >
-          <span
-            style={{
-              fontFamily: "var(--font-space-mono)",
-              fontSize: "11px",
-              color: "#F5C518",
-              letterSpacing: "0.15em",
-              display: "block",
-              marginBottom: "12px",
-            }}
-          >
-            {project.category}
-          </span>
-          <h3
-            style={{
-              fontFamily: "var(--font-space-grotesk)",
-              fontWeight: 700,
-              fontSize: "24px",
-              color: "#FFFFFF",
-              letterSpacing: "-0.02em",
-              margin: "0 0 8px",
-            }}
-          >
-            {project.name}
-          </h3>
-          <p
-            style={{
-              fontFamily: "var(--font-inter)",
-              fontWeight: 300,
-              fontSize: "13px",
-              color: "#888888",
-              margin: "0 0 20px",
-            }}
-          >
-            {project.disciplines}
-          </p>
-          <a
-            href="#contato"
-            onClick={(e) => { e.preventDefault(); document.querySelector("#contato")?.scrollIntoView({ behavior: "smooth" }); }}
-            style={{
-              fontFamily: "var(--font-space-grotesk)",
-              fontWeight: 500,
-              fontSize: "13px",
-              color: "#F5C518",
-              textDecoration: "none",
-            }}
-          >
-            Ver projeto →
-          </a>
-        </div>
-      </div>
-
-      {/* Category badge — visible when not hovered */}
-      <div
-        style={{
-          position: "absolute",
-          top: "1.25rem",
-          left: "1.25rem",
-          fontFamily: "var(--font-space-mono)",
-          fontSize: "10px",
-          color: "#F5C518",
-          letterSpacing: "0.15em",
-          opacity: hovered ? 0 : 1,
-          transition: "opacity 0.3s",
-        }}
-      >
-        {project.category}
+          {project.category}
+        </span>
+        <div style={{ width: "24px", height: "1.5px", background: "#F5C518", marginBottom: "10px" }} />
+        <h3
+          style={{
+            fontFamily: "var(--font-space-grotesk)",
+            fontWeight: 700,
+            fontSize: "18px",
+            color: "#FFFFFF",
+            letterSpacing: "-0.02em",
+            margin: "0 0 6px",
+          }}
+        >
+          {project.name}
+        </h3>
+        <p
+          style={{
+            fontFamily: "var(--font-inter)",
+            fontWeight: 300,
+            fontSize: "12px",
+            color: "#888888",
+            margin: "0 0 14px",
+          }}
+        >
+          {project.disciplines}
+        </p>
+        {/* "Ver projeto" — only on hover (desktop) */}
+        <a
+          href="#contato"
+          onClick={(e) => {
+            e.preventDefault();
+            document.querySelector("#contato")?.scrollIntoView({ behavior: "smooth" });
+          }}
+          style={{
+            fontFamily: "var(--font-space-grotesk)",
+            fontWeight: 500,
+            fontSize: "12px",
+            color: "#F5C518",
+            textDecoration: "none",
+            opacity: hovered ? 1 : 0,
+            transform: hovered ? "translateY(0)" : "translateY(6px)",
+            transition: "opacity 0.3s, transform 0.3s",
+          }}
+        >
+          Ver projeto →
+        </a>
       </div>
     </div>
   );
 }
 
-function ArrowBtn({ onClick, disabled, children }: { onClick: () => void; disabled: boolean; children: React.ReactNode }) {
+function ArrowBtn({
+  onClick,
+  disabled,
+  children,
+}: {
+  onClick: () => void;
+  disabled: boolean;
+  children: React.ReactNode;
+}) {
   const [hovered, setHovered] = useState(false);
   return (
     <button

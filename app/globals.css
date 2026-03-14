@@ -60,3 +60,59 @@ body {
 .scroll-bounce {
   animation: scrollBounce 2s ease-in-out infinite;
 }
+
+/* Reduced motion fallback */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Header height — 64px mobile, 80px desktop */
+.header-bar { height: 64px; }
+@media (min-width: 768px) { .header-bar { height: 80px; } }
+
+/* Hero padding-top matches header height */
+.hero-section { padding-top: 64px; padding-bottom: 40px; }
+@media (min-width: 768px) { .hero-section { padding-top: 80px; } }
+
+/* Hero CTAs — stack em mobile, lado a lado no desktop */
+.hero-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: stretch;
+  padding: 0 1rem;
+}
+@media (min-width: 640px) {
+  .hero-ctas {
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+  }
+}
+.hero-ctas a { text-align: center; }
+
+/* Stats grid — 2x2 mobile, 4 cols desktop */
+.stats-grid { grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* Mobile full-screen menu overlay */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 64px;
+  left: 0; right: 0; bottom: 0;
+  z-index: 49;
+  background: #0D0D0D;
+  overflow-y: auto;
+}
+@media (min-width: 768px) { .mobile-menu-overlay { top: 80px; } }
+
+/* Swipe hint pulse */
+@keyframes swipeHint {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+.swipe-hint { animation: swipeHint 1.8s ease-in-out infinite; }
