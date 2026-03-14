@@ -58,7 +58,6 @@ export default function Header() {
         zIndex: 50,
         background: "#0D0D0D",
         borderBottom: "1px solid #1C1C1C",
-        boxShadow: scrolled ? "0 1px 0 #F5C518" : "none",
         transition: "box-shadow 0.3s",
       }}
     >

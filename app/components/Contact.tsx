@@ -6,7 +6,7 @@ import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 
 export default function Contact() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, amount: 0.1 });
 
   const [form, setForm] = useState({
     name: "", email: "", phone: "", projectType: "", message: "",
@@ -129,7 +129,7 @@ export default function Contact() {
 
 function Separator() {
   return (
-    <div style={{ height: "1px", background: "rgba(245,197,24,0.15)", margin: "1rem 0" }} />
+    <div style={{ height: "1px", background: "#1C1C1C", margin: "1rem 0" }} />
   );
 }
 
@@ -156,7 +156,7 @@ const baseInputStyle: React.CSSProperties = {
   width: "100%", background: "#141414", border: "1px solid #2A2A2A", borderRadius: 0,
   padding: "12px 16px", fontFamily: "var(--font-inter)", fontWeight: 400,
   fontSize: "14px", color: "#F0EDE8", outline: "none", boxSizing: "border-box",
-  transition: "border-color 0.2s, box-shadow 0.2s",
+  transition: "border-color 0.2s",
 };
 
 function FieldInput({ label, name, value, onChange, placeholder, type = "text", required }: {
@@ -171,8 +171,8 @@ function FieldInput({ label, name, value, onChange, placeholder, type = "text", 
         type={type} name={name} value={value} onChange={onChange}
         placeholder={placeholder} required={required}
         style={baseInputStyle}
-        onFocus={(e) => { e.currentTarget.style.borderColor = "#F5C518"; e.currentTarget.style.boxShadow = "0 0 0 2px rgba(245,197,24,0.1)"; }}
-        onBlur={(e) => { e.currentTarget.style.borderColor = "#2A2A2A"; e.currentTarget.style.boxShadow = "none"; }}
+        onFocus={(e) => { e.currentTarget.style.borderColor = "#F5C518"; }}
+        onBlur={(e) => { e.currentTarget.style.borderColor = "#2A2A2A"; }}
       />
     </div>
   );
@@ -188,8 +188,8 @@ function FieldSelect({ label, name, value, onChange }: {
       <select
         name={name} value={value} onChange={onChange}
         style={baseInputStyle}
-        onFocus={(e) => { e.currentTarget.style.borderColor = "#F5C518"; e.currentTarget.style.boxShadow = "0 0 0 2px rgba(245,197,24,0.1)"; }}
-        onBlur={(e) => { e.currentTarget.style.borderColor = "#2A2A2A"; e.currentTarget.style.boxShadow = "none"; }}
+        onFocus={(e) => { e.currentTarget.style.borderColor = "#F5C518"; }}
+        onBlur={(e) => { e.currentTarget.style.borderColor = "#2A2A2A"; }}
       >
         <option value="">Selecione</option>
         <option>Projetos Elétricos</option>
@@ -216,8 +216,8 @@ function FieldTextarea({ label, name, value, onChange, placeholder }: {
         name={name} value={value} onChange={onChange} rows={5}
         placeholder={placeholder}
         style={{ ...baseInputStyle, resize: "none" }}
-        onFocus={(e) => { e.currentTarget.style.borderColor = "#F5C518"; e.currentTarget.style.boxShadow = "0 0 0 2px rgba(245,197,24,0.1)"; }}
-        onBlur={(e) => { e.currentTarget.style.borderColor = "#2A2A2A"; e.currentTarget.style.boxShadow = "none"; }}
+        onFocus={(e) => { e.currentTarget.style.borderColor = "#F5C518"; }}
+        onBlur={(e) => { e.currentTarget.style.borderColor = "#2A2A2A"; }}
       />
     </div>
   );

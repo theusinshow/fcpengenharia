@@ -14,11 +14,25 @@ const projects = [
     fallback: "https://static.wixstatic.com/media/b817bd_55412ed77f0f4b669e4f292f146435cd~mv2.png/v1/fill/w_1200,h_800,al_c,q_95/file.jpg",
   },
   {
+    category: "SAÚDE",
+    name: "UBS — Modelo BIM",
+    disciplines: "BIM · Climatização · Elétrico",
+    image: "https://static.wixstatic.com/media/b817bd_55412ed77f0f4b669e4f292f146435cd~mv2.png/v1/fill/w_1200,h_800,al_c,q_95/file.jpg",
+    fallback: "https://static.wixstatic.com/media/b817bd_a334d40d6003449c912aebbc0992b497~mv2.png/v1/fill/w_1200,h_800,al_c,q_95/file.jpg",
+  },
+  {
     category: "PATRIMÔNIO",
     name: "Restauro Histórico",
-    disciplines: "Elétrico · SPDA · Lógico",
+    disciplines: "Elétrico · SPDA · Luminotécnico",
     image: "https://static.wixstatic.com/media/b817bd_d6accb1c2d91457f873ac8204f8866cc~mv2.png/v1/fill/w_1200,h_800,al_c,q_95/file.jpg",
     fallback: "https://static.wixstatic.com/media/b817bd_66237b46fd394d82b0f7fb389e559a4f~mv2.png/v1/fill/w_1200,h_800,al_c,q_95/file.jpg",
+  },
+  {
+    category: "PATRIMÔNIO",
+    name: "Patrimônio — Planta BIM",
+    disciplines: "Elétrico · Lógico · Entrada de Energia",
+    image: "https://static.wixstatic.com/media/b817bd_66237b46fd394d82b0f7fb389e559a4f~mv2.png/v1/fill/w_1200,h_800,al_c,q_95/file.jpg",
+    fallback: "https://static.wixstatic.com/media/b817bd_d6accb1c2d91457f873ac8204f8866cc~mv2.png/v1/fill/w_1200,h_800,al_c,q_95/file.jpg",
   },
   {
     category: "ESPORTIVO",
@@ -28,25 +42,11 @@ const projects = [
     fallback: "https://static.wixstatic.com/media/b817bd_a3cec119ec3e45628529609ebd54dda2~mv2.png/v1/fill/w_1200,h_800,al_c,q_95/file.jpg",
   },
   {
-    category: "INDUSTRIAL",
-    name: "Planta Frigorífica Sul Catarinense",
-    disciplines: "Subestação · Painéis · Automação",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&h=800&fit=crop",
-    fallback: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&h=800&fit=crop",
-  },
-  {
-    category: "ENERGIA SOLAR",
-    name: "Condomínio Residencial Mirante",
-    disciplines: "Fotovoltaico · Elétrico · SPDA",
-    image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&h=800&fit=crop",
-    fallback: "https://images.unsplash.com/photo-1548075710-8e49ab3b0e7a?w=1200&h=800&fit=crop",
-  },
-  {
-    category: "COMERCIAL",
-    name: "Torre Corporativa Centro",
-    disciplines: "Elétrico · PPCI · Cabeamento",
-    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&h=800&fit=crop",
-    fallback: "https://images.unsplash.com/photo-1464082354059-27db6ce50048?w=1200&h=800&fit=crop",
+    category: "ESPORTIVO",
+    name: "Sede — Detalhe Técnico",
+    disciplines: "Luminotécnico · Campo de Futebol",
+    image: "https://static.wixstatic.com/media/b817bd_a3cec119ec3e45628529609ebd54dda2~mv2.png/v1/fill/w_1200,h_800,al_c,q_95/file.jpg",
+    fallback: "https://static.wixstatic.com/media/b817bd_3670115a62c64f4d8eb39cb58f623d89~mv2.jpeg/v1/fill/w_1200,h_800,al_c,q_95/file.jpg",
   },
 ];
 
@@ -55,7 +55,7 @@ const CARD_GAP = 16;
 
 export default function Portfolio() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, amount: 0.1 });
   const [active, setActive] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -95,7 +95,6 @@ export default function Portfolio() {
       style={{
         background: "#0A0A0A",
         padding: "6rem 0",
-        borderTop: "1px solid #F5C518",
         overflow: "hidden",
       }}
     >

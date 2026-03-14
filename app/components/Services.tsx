@@ -51,7 +51,7 @@ const services = [
 
 export default function Services() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
     <section
@@ -137,7 +137,6 @@ function ServiceCard({
         flexDirection: "column",
         gap: "1rem",
         border: hovered ? "1px solid #F5C518" : "1px solid transparent",
-        borderLeft: hovered ? "3px solid #F5C518" : "3px solid transparent",
         boxShadow: hovered ? "0 0 32px rgba(245,197,24,0.08)" : "none",
         transition: "border-color 0.25s, box-shadow 0.25s",
         cursor: "default",
@@ -152,9 +151,8 @@ function ServiceCard({
           right: "1.5rem",
           fontFamily: "var(--font-space-mono)",
           fontSize: "14px",
-          color: "#F5C518",
+          color: "#2A2A2A",
           fontWeight: 400,
-          opacity: 0.12,
         }}
       >
         {service.num}

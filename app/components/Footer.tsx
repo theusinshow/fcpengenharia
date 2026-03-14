@@ -19,7 +19,7 @@ export default function Footer() {
     <footer
       style={{
         background: "#080808",
-        borderTop: "1px solid #F5C518",
+        borderTop: "1px solid #1C1C1C",
         padding: "3rem 2rem",
       }}
     >
@@ -88,7 +88,7 @@ export default function Footer() {
           </p>
           <p style={{ fontFamily: "var(--font-space-mono)", fontSize: "11px", margin: 0, letterSpacing: "0.06em" }}>
             <span style={{ color: "#2A2A2A" }}>Desenvolvido por </span>
-            <span style={{ color: "#F5C518" }}>Coded by M</span>
+            <span style={{ color: "#2A2A2A" }}>Coded by M</span>
           </p>
         </div>
       </div>
